@@ -1,0 +1,134 @@
+\section{RESULTS AND DISCUSSION}
+All the required data for wind speed/direction prediction are taken from National Renewable Energy Laboratory(NREL) website for year 2007. in this study, we used 10000 sample data that is equivalent to 8760 samples(hour/year) for training and for 1240 samples the test. The aim of the paper is to compare the performance of the NARX, RNN,NNN, and CFNN models in forecasting the wind data in short-term schemes. The aim of this study is to better understanding the performance of the different algorithms to reduce the computational complexity of the learning process, forecasting`s performance improvement and, reduction the space of data storage by better understanding the data.The dataset consists of selected features are used as input for CFNN, RNN, NIONN, NAR and, NARX models to predict the wind speed. All three models are assessed in terms of R and MSE. All the models are developed in MATLAB software and results are taken in the same conditions. The hardware specifications are CPU model i5-8250U @ 1.60GHz, GPU model NVIDIA GeForce MX150 and 12 GB RAM.
+Table \ref{t1} represents the prediction performance of wind speed in three different Hidden layers (H) and applied Delays (D). The evaluation is estimated by MSE and R. The R identifies the relationship within measured and predicted values which ranged between 0 and one. closer values of R  to one means a greater fit.Mean Squared Error (MSE) is defined as the difference between outputs and targets on average squared, so, Lower values mean better performance.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table*}[h]
+\centering
+\caption{Prediction performance for different Hidden layers (H) and Delays(D)} \label{t1}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf {Number of layers and Delays} & \textbf {MSE}                                & \textbf {R}                                  & \textbf {Training time} (Seconds) \\ \hline
+22H and 2D                  &  \num{1.97256 e-4} &  \num{9.97911 e-1} & 14                      \\ \hline
+20H and 2D                  &  \num{1.49607 e-4} &  \num{9.98408 e-1} & 17                      \\ \hline
+19H and 1D                  &  \num{1.55916 e-4} &  \num{9.98345 e-1} & 10                      \\ \hline
+20H and 1D                  &  \num{1.30786 e-5} &  \num{9.99860 e-1} & 20                      \\ \hline
+10H and 2D                  &  \num{1.51361 e-4} &  \num{9.98387 e-1} & 11                      \\ \hline
+10H and 1D                  &  \num{1.61457 e-4} &  \num{9.98285 e-1} & 12                      \\ \hline
+\end{tabular}
+\end{table*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+According to table \ref{t1}, the best R-value for the NARX model is equal to  \num{9.99860 e-1} and MSE value is equal to \num{1.30786 e-5}. 
+In the same way, The NARX model with the best performance is compared with curve fitting, RNN, and NIONN models as shown in Table \ref{t1}. Figure \ref{f1} shows the comparison of the performance of the NARX, RNN, CFNN, and NIONN models.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table*}[t]
+\centering
+\caption{Wind speed prediction performance for different models} \label{t2}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Forecasting model} & \textbf{MSE}               & \textbf{R}                 & \textbf{Training time} & \textbf{Best performance based on H\&D} \\ \hline
+NARXNN            & \num{1.30786 e-5} & \num{9.99860 e-1} & 20 Seconds &20H and 1D    \\ \hline
+RNN               & \num{2.6221e-06}  & \num{9.99970 e-1} & 6.17 Minutes &10H and 2D \\ \hline
+CFNN              & \num{2.63631 e-4} & \num{9.99971 e-1} & 2.35 Minutes &20H and 2D   \\ \hline
+NIONN             & \num{1.32714 e-4} & \num{9.98587 e-1} & 10 Seconds  &20H and 2D  \\ \hline
+\end{tabular}
+\end{table*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[h]
+\centering
+\subfigure[Wide view]{%
+\centering
+  \resizebox{6in}{1.9in} {\includegraphics{Resultofall.eps}} \label{f1a}}%
+\vspace{1ex}
+\subfigure[Zoomed view]{%
+\centering
+ \resizebox{6in}{1.9in} {\includegraphics{Resultofall_z.eps}} \label{f1b}}%
+ 
+\caption{Comparison of the performance of the NARX, RNN, CFNN, and NIONN models} \label{f1}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Among the different architectures, the RNN performed
+best with  MSE= \num{2.6221e-06} value, CFNN, NARX, and NIONN are standing to the second to fourth place respectively. the best regression value belongs to the RNN model is which is equal to \num{9.99970 e-1}.  The regression value represents a perfect fit model by prediction and closer values to 1 means better accuracy. Moreover, the regression value is \num{9.99971 e-1} for CFNN,\num{9.99860 e-1} for NARX, and \num{9.98587 e-1} for NIONN. The results show that the R-value in the NARX model is slightly lower in comparison to the RNN model around 0.0011 which is totally negligible. NARX model has better performance in case of training time . The prediction errors are estimated for training, test and validation utilizing an error histogram presented in Figure \ref{f2}.  It is describing the distribution of errors in prediction which is grouped into 20 bins in each instance. Figure \ref{f2a} shows that the distribution of the majority of the errors is close to zero in the NARX model, which represents a fairly spotless fit.To test the model performance, the auto-correlations are compared through the prediction are presented in Figure \ref{f3}. auto-correlations describe prediction errors in association with time.
+In a perfect predicting result, just one non-zero of auto-correlation
+occurs at zero lag. This means the prediction errors
+were independent on each other, excluding the one at zero lag.
+The auto-correlation helps to develop the training structure
+that provided the most accurate output of the performance of the model.
+The input/error given by cross/correlation describes the correlation of the errors with the pattern of inputs if all correlations are equal to zero, then the prediction model is perfect. Figure \ref{f4} presented a
+predicted model for NARX, RNN, CFNN, and NIONN.
+\begin{figure*}[h*]
+\centering
+\subfigure[NARX model ]{%
+\centering
+  \resizebox{6in}{2.1in} {\includegraphics{Er_narx_2h1d.eps}} \label{f2a}}%
+\vspace{2ex}
+
+\subfigure[RNN]{%
+\centering
+ \resizebox{6in}{2.1in} {\includegraphics{EH_RNN.eps}} \label{f2b}}%
+ \vspace{2ex}
+\subfigure[CFNN]{%
+\centering
+ \resizebox{6in}{2.1in} {\includegraphics{EH_CFNN.eps}} \label{f2c}}%
+ \vspace{2ex}
+ \subfigure[NIONN]{%
+\centering
+ \resizebox{6in}{2.1in} {\includegraphics{EH_OP.eps}} \label{f2d}}%
+\caption{Error histogram of the NARX, RNN, CFNN, and NIONN models} \label{f2}
+
+\end{figure*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[h*]
+\centering
+\subfigure[NARXNN]{%
+\centering
+  \resizebox{6in}{2.1in} {\includegraphics{RA_CL.eps}} \label{f3a}}%
+\vspace{2ex}
+
+\subfigure[RNN]{%
+\centering
+ \resizebox{6in}{2.1in} {\includegraphics{RA_RNN.eps}} \label{f3b}}%
+ \vspace{2ex}
+\subfigure[CFNN]{%
+\centering
+ \resizebox{6in}{2.1in} {\includegraphics{RA_cfnn.eps}} \label{f3c}}%
+ \vspace{2ex}
+ \subfigure[NIONN]{%
+\centering
+ \resizebox{6in}{2.1in} {\includegraphics{RA_OP.eps}} \label{f3d}}%
+\caption{Error histogram of the NARX, RNN, CFNN, and NIONN models} \label{f3}
+
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[h*]
+\centering
+\subfigure[NARXNN]{%
+\centering
+  \resizebox{6in}{2.1in} {\includegraphics{IO_CL.eps}} \label{f4a}}%
+\vspace{2ex}
+
+\subfigure[RNN]{%
+\centering
+ \resizebox{6in}{2.1in} {\includegraphics{IO_RNN.eps}} \label{f4b}}%
+ \vspace{2ex}
+\subfigure[CFNN]{%
+\centering
+ \resizebox{6in}{2.1in} {\includegraphics{IO_CFNN.eps}} \label{f4c}}%
+ \vspace{2ex}
+ \subfigure[NIONN]{%
+\centering
+ \resizebox{6in}{2.1in} {\includegraphics{IO_OP.eps}} \label{f4d}}%
+\caption{The input-error cross-correlation of the NARX, RNN, CFNN, and NIONN models} \label{f4}
+
+\end{figure*}
+
+%\subsection{Solar Energy Prediction}
+
+
+
+\section{CONCLUSION}\label{concl}  
+Prediction of Wind power is crucial these days as it is utilized as a source of renewable energy rapidly. Precise forecasting of wind speed is a complex task because of the uncertain nature of wind speed ant its dependency to ambient condition. The benefit of utilizing the NARXNN model is lie-down in its simplicity and capability of learning the nonlinear models with an input/output relationship. Currently, the existing analysis within the predicted output states that the NARX model is able to precisely predict the wind speed/power. 
+This paper aimed to study the performance of the NARX in compares to  RNN, CFNN, NIONN models for wind speed prediction. These models were developed and the performance of the models was compared in case of MSE, R, and training time values. The results revealed that the NARX  model has a better performance comparing all the models in training time and error histogram while the accuracy of RNN and CFNN models are performing better as they have better values for R and MSE. However, the differences between these models for  R and MSE values are very small and negligible. As future work, this study can expand further and combine different models and check the performance of those model in case of accuracy and training time.
