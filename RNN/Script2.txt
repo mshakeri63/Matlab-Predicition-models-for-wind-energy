@@ -1,0 +1,41 @@
+ inputs = tonndata(i, false,false);
+targets = tonndata(t, false,false);
+net = layrecnet(1:2,10);
+[Xs,Xi,Ai,Ts] = preparets(net, inputs, targets);
+%net = train(net,Xs,Ts,Xi,Ai);
+net.divideFcn = 'dividerand';  % Divide data randomly
+% The property DIVIDEMODE set to TIMESTEP means that targets are divided
+% into training, validation and test sets according to timesteps.
+% For a list of data division modes type: help nntype_data_division_mode
+net.divideMode = 'value';  % Divide up every value
+net.divideParam.trainRatio = 70/100;
+net.divideParam.valRatio = 10/100;
+net.divideParam.testRatio = 10/100;
+ 
+% Choose a Training Function
+% For a list of all training functions type: help nntrain
+% Customize training parameters at: net.trainParam
+net.trainFcn = 'trainlm';  % Levenberg-Marquardt
+ 
+% Choose a Performance Function
+% For a list of all performance functions type: help nnperformance
+% Customize performance parameters at: net.performParam
+net.performFcn = 'mse';  % Mean squared error
+ 
+% Choose Plot Functions
+% For a list of all plot functions type: help nnplot
+% Customize plot parameters at: net.plotParam
+%net.plotFcns = {'plotperform','plottrainstate','plotresponse', ...
+ % 'ploterrcorr', 'plotinerrcorr'};
+
+net = train(net,Xs,Ts,Xi,Ai);
+%Y = net(Xs,Xi,Ai);
+outputs = net(Xs,Xi,Ai);
+errors = gsubtract(Ts,Y);
+perf = perform(net,Ts, outputs);
+view(net)
+
+
+
+Change from matrix to nn standard cell
+T20 = fromnndata(outputs,true,true,false);
